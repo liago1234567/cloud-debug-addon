@@ -18,11 +18,8 @@ jobs:
       - name: Verify Java installation
         run: java -version
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-
       - name: Build with Gradle
-        run: ./gradlew build -Dorg.gradle.java.home=$JAVA_HOME
+        run: gradle build
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
