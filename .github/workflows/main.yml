@@ -13,7 +13,7 @@ jobs:
           distribution: 'temurin'
       - run: chmod +x gradlew
       - run: ./gradlew build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: JAR
           path: build/libs/*.jar
