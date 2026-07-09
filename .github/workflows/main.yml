@@ -1,6 +1,31 @@
-- name: Set up Java
-  uses: actions/setup-java@v4 # V4 nutzt bereits standardmäßig Node 20+
-  with:
-    java-version: '21'
-    distribution: 'temurin'
-    cache: gradle
+name: Build JAR
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Verify Java installation
+        run: java -version
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JAR
+          path: build/libs/*.jar
