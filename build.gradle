@@ -4,6 +4,8 @@ plugins {
 
 group = 'dev.clouddebug'
 version = '0.1.0'
+sourceCompatibility = '21'
+targetCompatibility = '21'
 
 repositories {
     mavenCentral()
@@ -12,16 +14,37 @@ repositories {
     }
 }
 
+configurations {
+    all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+}
+
 dependencies {
     implementation 'meteordevelopment:meteor-client:0.5.7'
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
 }
 
 jar {
     archiveBaseName = 'cloud-debug-addon'
     archiveVersion = '0.1.0'
+    
+    manifest {
+        attributes(
+            'Manifest-Version': '1.0',
+            'Created-By': 'Cloud Debug Addon',
+            'Implementation-Version': '0.1.0',
+            'Implementation-Vendor': 'Cloud Debug'
+        )
+    }
 }
